@@ -1,0 +1,130 @@
+colorScheme = "blowfish"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+enableA11y = true
+enableSearch = true
+enableCodeCopy = true
+enableBreadcrumb = true
+enableStructuredBreadcrumbs = true
+replyByEmail = false
+mainSections = ["posts"]
+disableImageOptimization = false
+disableImageOptimizationMD = false
+disableTextInHeader = false
+defaultBackgroundImage = "img/background.svg"
+defaultFeaturedImage = "img/featured.svg"
+defaultSocialImage = "/images/placeholders/hero.svg"
+hotlinkFeatureImage = false
+smartTOC = true
+smartTOCHideUnfocusedChildren = false
+fingerprintAlgorithm = "sha512"
+
+[header]
+layout = "fixed"
+
+[footer]
+showMenu = true
+showContactIcons = true
+showAppearanceSwitcher = true
+showScrollToTop = true
+
+[homepage]
+layout = "background"
+showRecent = true
+showRecentItems = 4
+showMoreLink = true
+showMoreLinkDest = "/posts/"
+cardView = true
+cardViewScreenWidth = false
+layoutBackgroundBlur = true
+disableHeroImageFilter = false
+
+[article]
+showDate = true
+showDateOnlyInArticle = true
+showDateUpdated = true
+showAuthor = true
+showHero = true
+heroStyle = "background"
+layoutBackgroundBlur = true
+layoutBackgroundHeaderSpace = true
+showBreadcrumbs = true
+showDraftLabel = true
+showEdit = false
+seriesOpened = false
+showHeadingAnchors = true
+showPagination = true
+showReadingTime = true
+showTableOfContents = true
+showRelatedContent = true
+relatedContentLimit = 6
+showTaxonomies = true
+showAuthorsBadges = true
+showWordCount = false
+sharingLinks = ["linkedin", "twitter", "bluesky", "weibo", "telegram", "whatsapp", "facebook", "email"]
+showZenMode = true
+
+[list]
+showHero = true
+heroStyle = "background"
+layoutBackgroundBlur = true
+layoutBackgroundHeaderSpace = false
+showBreadcrumbs = false
+showSummary = false
+showTableOfContents = true
+showCards = true
+orderByWeight = true
+groupByYear = false
+cardView = true
+cardViewScreenWidth = false
+constrainItemsWidth = false
+
+[taxonomy]
+showTermCount = true
+showHero = true
+heroStyle = "background"
+showBreadcrumbs = false
+showTableOfContents = true
+cardView = false
+
+[term]
+showHero = true
+heroStyle = "background"
+showBreadcrumbs = false
+showTableOfContents = true
+groupByYear = false
+cardView = true
+cardViewScreenWidth = false
+
+[syntax]
+useChroma = true
+style = "catppuccin-mocha"
+
+[sharing]
+shareTwitter = true
+shareLinkedIn = true
+shareWeibo = true
+shareCopyLink = true
+
+[plausible]
+site = ""
+
+[[social]]
+name = "GitHub"
+icon = "fa-brands fa-github"
+url = "https://github.com/protectione055"
+
+[[social]]
+name = "X"
+icon = "fa-brands fa-x-twitter"
+url = "https://x.com/okina"
+
+[[social]]
+name = "Mastodon"
+icon = "fa-brands fa-mastodon"
+url = "https://mastodon.social/@okina"
+
+[[social]]
+name = "RSS"
+icon = "fa-solid fa-square-rss"
+url = "/index.xml"

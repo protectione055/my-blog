@@ -1,0 +1,21 @@
+title: "书包是笨蛋的博客"
+subtitle: "双语记录工程实践、旅途见闻与生活方式灵感。"
+image:
+  # src: "/images/placeholders/hero.svg"
+  alt: "Sunlit desk with coffee and notebook"
+badges:
+  - label: "Hugo + Blowfish"
+    icon: "fa-solid fa-leaf"
+  - label: "双语 / Bilingual"
+    icon: "fa-solid fa-language"
+links:
+  - label: "阅读最新文章"
+    url: "/posts/"
+    icon: "fa-solid fa-book-open"
+    primary: true
+  - label: "关于作者"
+    url: "/about/"
+    icon: "fa-solid fa-user"
+  - label: "订阅 RSS"
+    url: "/index.xml"
+    icon: "fa-solid fa-square-rss"

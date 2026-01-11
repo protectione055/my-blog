@@ -1,0 +1,22 @@
+{
+  "name": "my-blog",
+  "version": "0.1.0",
+  "description": "Hugo + Blowfish personal blog scaffold",
+  "scripts": {
+    "dev": "hugo server --buildDrafts --disableFastRender --bind 0.0.0.0",
+    "build": "bash ./scripts/build.sh",
+    "preview": "hugo server --environment production --buildDrafts --buildFuture --noHTTPCache --bind 0.0.0.0",
+    "spec:validate": "openspec validate --strict"
+  },
+  "keywords": [
+    "hugo",
+    "blowfish",
+    "blog"
+  ],
+  "author": "zzm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  }
+}

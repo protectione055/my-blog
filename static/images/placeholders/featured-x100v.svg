@@ -1,0 +1,8 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fujifilm weekend placeholder">
+  <rect width="640" height="360" rx="32" fill="#111827" />
+  <rect x="160" y="110" width="320" height="140" rx="40" fill="#0ea5e9" opacity="0.85" />
+  <circle cx="320" cy="180" r="58" fill="#0f172a" stroke="#fefce8" stroke-width="8" />
+  <circle cx="320" cy="180" r="28" fill="#38bdf8" />
+  <rect x="210" y="80" width="220" height="40" rx="20" fill="#f97316" />
+  <text x="320" y="330" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="30" fill="#fefce8">Weekend with X100V</text>
+</svg>

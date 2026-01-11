@@ -1,0 +1,6 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar placeholder">
+  <rect width="320" height="320" rx="48" fill="#0f172a" />
+  <circle cx="160" cy="120" r="70" fill="#38bdf8" opacity="0.9" />
+  <rect x="70" y="210" width="180" height="80" rx="40" fill="#f97316" opacity="0.85" />
+  <text x="160" y="265" text-anchor="middle" font-size="42" font-family="'JetBrains Mono', monospace" fill="#fefce8">书包是笨蛋</text>
+</svg>

@@ -1,0 +1,51 @@
+[zh]
+languageName = "简体中文"
+title = "书包是笨蛋的博客"
+weight = 1
+contentDir = "content/zh"
+languageCode = "zh-CN"
+
+  [zh.params]
+  displayName = "中文"
+  isoCode = "zh-CN"
+  rtl = false
+  dateFormat = "2006-01-02"
+  logo = "img/blowfish_logo_transparent.png"
+  description = "记录工程实践、旅行札记与生活方式灵感的双语博客。"
+
+  [zh.params.author]
+  name = "书包是笨蛋"
+  image = "images/placeholders/avatar.jpg"
+  headline = "Just for Fun."
+  bio = "写代码、拍照片，也写下旅途与生活的温度。"
+  links = [
+    { github = "https://github.com/protectione055" },
+    { zhihu = "https://www.zhihu.com/people/joyboy-6" },
+    { rss = "/zh/index.xml" }
+  ]
+
+[en]
+languageName = "English"
+title = "Taurean's Blog"
+weight = 2
+contentDir = "content/en"
+languageCode = "en-US"
+
+  [en.params]
+  displayName = "English"
+  isoCode = "en-US"
+  rtl = false
+  dateFormat = "Jan 2, 2006"
+  logo = "img/blowfish_logo_transparent.png"
+  description = "A bilingual digital garden sharing engineering notes, travel logs, and creative experiments."
+
+  [en.params.author]
+  name = "Taurean"
+  image = "images/placeholders/avatar.jpg"
+  headline = "Engineer · Traveler · Storyteller"
+  bio = "Bilingual notes on software, photography, and slow living."
+  links = [
+    { github = "https://github.com/protectione055" },
+    { x-twitter = "https://x.com/protectione055" },
+    { rss = "/en/index.xml" }
+  ]

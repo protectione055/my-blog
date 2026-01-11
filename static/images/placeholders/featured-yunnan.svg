@@ -1,0 +1,12 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yunnan remote work placeholder">
+  <defs>
+    <linearGradient id="sunset" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="32" fill="#022c22" />
+  <circle cx="500" cy="100" r="60" fill="url(#sunset)" />
+  <path d="M0 250 Q 120 210 240 250 T 640 250 V 360 H0Z" fill="#0f172a" />
+  <text x="60" y="90" font-size="32" font-family="'JetBrains Mono', monospace" fill="#fefce8">Remote Week · Dali</text>
+</svg>

@@ -1,0 +1,12 @@
+- name: GitHub
+  icon: fa-brands fa-github
+  url: https://github.com/protectione055
+- name: Twitter
+  icon: fa-brands fa-x-twitter
+  url: https://x.com/okina
+- name: Mastodon
+  icon: fa-brands fa-mastodon
+  url: https://mastodon.social/@okina
+- name: RSS
+  icon: fa-solid fa-square-rss
+  url: /index.xml

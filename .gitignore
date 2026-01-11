@@ -1,0 +1,18 @@
+# Hugo build artifacts
+/public/
+/resources/_gen/
+/assets/js/.cache/
+/.hugo_build.lock
+
+# Node & tooling
+/node_modules/
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Snap & misc
+snap/

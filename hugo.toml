@@ -1,0 +1,41 @@
+baseURL = "http://ironmanzzm.top/"
+languageCode = "zh-CN"
+title = "书包是笨蛋的博客"
+theme = "blowfish"
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = true
+enableRobotsTXT = true
+enableGitInfo = false
+hasCJKLanguage = true
+buildDrafts = false
+timeZone = "Asia/Shanghai"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+section = ["HTML", "RSS"]
+taxonomy = ["HTML", "RSS"]
+term = ["HTML", "RSS"]
+
+[markup]
+	[markup.goldmark]
+		[markup.goldmark.renderer]
+			unsafe = true
+	[markup.highlight]
+		style = "monokai"
+		noClasses = false
+		guessSyntax = true
+	[markup.tableOfContents]
+		startLevel = 2
+		endLevel = 4
+
+[server]
+	port = 1313
+	watch = true
+	log = true
+
+[pagination]
+	pagerSize = 10
+
+[minify]
+	[minify.tdewolff.html]
+		keepWhitespace = false

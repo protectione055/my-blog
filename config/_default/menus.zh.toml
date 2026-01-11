@@ -1,0 +1,29 @@
+[[main]]
+identifier = "posts"
+name = "文章"
+url = "/zh/posts/"
+weight = 10
+
+[[main]]
+identifier = "about"
+name = "关于"
+url = "/zh/about/"
+weight = 20
+
+[[main]]
+identifier = "projects"
+name = "项目"
+url = "/zh/projects/"
+weight = 30
+
+[[footer]]
+identifier = "rss"
+name = "RSS"
+url = "/zh/index.xml"
+weight = 10
+
+[[footer]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/protectione055"
+weight = 20

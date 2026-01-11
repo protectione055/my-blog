@@ -1,0 +1,22 @@
+items:
+  - title: "在云南的远程办公一周"
+    summary: "离开城市的喧嚣，把工作搬到大理古城的客栈，重新校准生活节奏。"
+    image: "/images/placeholders/featured-yunnan.svg"
+    link: "/zh/posts/remote-week-yunnan/"
+    badges:
+      - label: "旅行"
+      - label: "生活方式"
+  - title: "Revisiting my note-taking stack"
+    summary: "How I combine Hugo, Obsidian, and paper notebooks to build a calm knowledge system."
+    image: "/images/placeholders/featured-note-stack.jpg"
+    link: "/en/posts/note-taking-stack/"
+    badges:
+      - label: "Productivity"
+      - label: "Tools"
+  - title: "拍摄与剪辑：带着富士 X100V 的周末"
+    summary: "记录一次城市漫步的拍摄流程，附上色彩管理与导出预设。"
+    image: "/images/placeholders/featured-x100v.svg"
+    link: "/zh/posts/weekend-with-x100v/"
+    badges:
+      - label: "摄影"
+      - label: "胶片色调"

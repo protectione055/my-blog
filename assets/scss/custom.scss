@@ -1,0 +1,23 @@
+$brand-accent: #f97316;
+$brand-accent-dark: #ea580c;
+
+body {
+  font-family: "LXGW WenKai Screen", "JetBrains Mono", "Inter", sans-serif;
+  line-height: 1.7;
+}
+
+.hero {
+  background: linear-gradient(145deg, rgba(249, 115, 22, 0.1), rgba(14, 165, 233, 0.1));
+}
+
+.bf-card__title a {
+  color: $brand-accent;
+
+  &:hover {
+    color: $brand-accent-dark;
+  }
+}
+
+.dark .hero {
+  background: linear-gradient(145deg, rgba(249, 115, 22, 0.2), rgba(8, 145, 178, 0.2));
+}

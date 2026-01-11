@@ -1,0 +1,29 @@
+[[main]]
+identifier = "posts"
+name = "Posts"
+url = "/en/posts/"
+weight = 10
+
+[[main]]
+identifier = "about"
+name = "About"
+url = "/en/about/"
+weight = 20
+
+[[main]]
+identifier = "projects"
+name = "Projects"
+url = "/en/projects/"
+weight = 30
+
+[[footer]]
+identifier = "rss"
+name = "RSS"
+url = "/en/index.xml"
+weight = 10
+
+[[footer]]
+identifier = "github"
+name = "GitHub"
+url = "https://github.com/protectione055"
+weight = 20
