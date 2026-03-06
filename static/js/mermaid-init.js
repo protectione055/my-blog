@@ -1,5 +1,93 @@
 const MERMAID_MODULE_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
+function getMermaidConfig(theme) {
+  const isDark = theme === "dark";
+
+  return {
+    startOnLoad: false,
+    securityLevel: "loose",
+    theme: "base",
+    fontFamily: '"LXGW WenKai Screen", "Inter", sans-serif',
+    themeVariables: isDark
+      ? {
+          darkMode: true,
+          background: "#0f172a",
+          primaryColor: "#1e293b",
+          primaryBorderColor: "#fb923c",
+          primaryTextColor: "#f8fafc",
+          secondaryColor: "#082f49",
+          secondaryBorderColor: "#38bdf8",
+          secondaryTextColor: "#e0f2fe",
+          tertiaryColor: "#172554",
+          tertiaryBorderColor: "#60a5fa",
+          tertiaryTextColor: "#dbeafe",
+          lineColor: "#94a3b8",
+          textColor: "#e2e8f0",
+          mainBkg: "#1e293b",
+          secondBkg: "#082f49",
+          tertiaryBkg: "#172554",
+          clusterBkg: "rgba(30, 41, 59, 0.9)",
+          clusterBorder: "#475569",
+          edgeLabelBackground: "#0f172a",
+          nodeBorder: "#fb923c",
+          actorBkg: "#1e293b",
+          actorBorder: "#fb923c",
+          actorTextColor: "#f8fafc",
+          actorLineColor: "#94a3b8",
+          signalColor: "#cbd5e1",
+          signalTextColor: "#e2e8f0",
+          labelBoxBkgColor: "#0f172a",
+          labelBoxBorderColor: "#475569",
+          labelTextColor: "#e2e8f0",
+          loopTextColor: "#f8fafc",
+          noteBkgColor: "#3f2a12",
+          noteBorderColor: "#fdba74",
+          noteTextColor: "#ffedd5",
+          activationBkgColor: "#7c2d12",
+          activationBorderColor: "#fdba74",
+          sequenceNumberColor: "#fb923c",
+        }
+      : {
+          darkMode: false,
+          background: "#f8fafc",
+          primaryColor: "#fff7ed",
+          primaryBorderColor: "#f97316",
+          primaryTextColor: "#7c2d12",
+          secondaryColor: "#eff6ff",
+          secondaryBorderColor: "#0ea5e9",
+          secondaryTextColor: "#0f172a",
+          tertiaryColor: "#f8fafc",
+          tertiaryBorderColor: "#94a3b8",
+          tertiaryTextColor: "#1e293b",
+          lineColor: "#64748b",
+          textColor: "#0f172a",
+          mainBkg: "#ffffff",
+          secondBkg: "#eff6ff",
+          tertiaryBkg: "#fff7ed",
+          clusterBkg: "rgba(255, 255, 255, 0.88)",
+          clusterBorder: "#cbd5e1",
+          edgeLabelBackground: "#ffffff",
+          nodeBorder: "#f97316",
+          actorBkg: "#ffffff",
+          actorBorder: "#f97316",
+          actorTextColor: "#0f172a",
+          actorLineColor: "#64748b",
+          signalColor: "#334155",
+          signalTextColor: "#0f172a",
+          labelBoxBkgColor: "#ffffff",
+          labelBoxBorderColor: "#cbd5e1",
+          labelTextColor: "#0f172a",
+          loopTextColor: "#7c2d12",
+          noteBkgColor: "#fff7ed",
+          noteBorderColor: "#fdba74",
+          noteTextColor: "#7c2d12",
+          activationBkgColor: "#ffedd5",
+          activationBorderColor: "#fb923c",
+          sequenceNumberColor: "#ea580c",
+        },
+  };
+}
+
 function getWrapperNodes() {
   return Array.from(document.querySelectorAll("[data-mermaid-wrapper]"));
 }
@@ -62,7 +150,6 @@ function applyZoom(wrapper) {
 }
 
 function bindZoomControls() {
-
   for (const wrapper of getWrapperNodes()) {
     const svg = wrapper.querySelector("svg");
     if (svg) {
@@ -137,11 +224,7 @@ export default function initMermaid() {
 
           resetDiagramSources(nodes);
 
-          mermaid.initialize({
-            startOnLoad: false,
-            securityLevel: "loose",
-            theme: getTheme(),
-          });
+          mermaid.initialize(getMermaidConfig(getTheme()));
 
           await mermaid.run({ nodes });
           bindZoomControls();
