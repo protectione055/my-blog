@@ -11,7 +11,9 @@
       重置
     </button>
   </div>
-  <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
+  <div class="mermaid-canvas" data-mermaid-canvas>
+    <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
+  </div>
 </div>
 <script type="module">
   import initMermaid from '{{ "js/mermaid-init.js" | relURL }}';

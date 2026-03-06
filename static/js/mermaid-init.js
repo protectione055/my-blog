@@ -40,12 +40,12 @@ function getMermaidConfig(theme) {
           labelBoxBorderColor: "#475569",
           labelTextColor: "#e2e8f0",
           loopTextColor: "#f8fafc",
-          noteBkgColor: "#3f2a12",
-          noteBorderColor: "#fdba74",
-          noteTextColor: "#ffedd5",
-          activationBkgColor: "#7c2d12",
-          activationBorderColor: "#fdba74",
-          sequenceNumberColor: "#fb923c",
+          noteBkgColor: "#10243b",
+          noteBorderColor: "#7dd3fc",
+          noteTextColor: "#e0f2fe",
+          activationBkgColor: "#0f3a52",
+          activationBorderColor: "#38bdf8",
+          sequenceNumberColor: "#7dd3fc",
         }
       : {
           darkMode: false,
@@ -77,13 +77,13 @@ function getMermaidConfig(theme) {
           labelBoxBkgColor: "#ffffff",
           labelBoxBorderColor: "#cbd5e1",
           labelTextColor: "#0f172a",
-          loopTextColor: "#7c2d12",
-          noteBkgColor: "#fff7ed",
-          noteBorderColor: "#fdba74",
-          noteTextColor: "#7c2d12",
-          activationBkgColor: "#ffedd5",
-          activationBorderColor: "#fb923c",
-          sequenceNumberColor: "#ea580c",
+          loopTextColor: "#0f172a",
+          noteBkgColor: "#eff6ff",
+          noteBorderColor: "#7dd3fc",
+          noteTextColor: "#0f172a",
+          activationBkgColor: "#e0f2fe",
+          activationBorderColor: "#38bdf8",
+          sequenceNumberColor: "#0284c7",
         },
   };
 }
@@ -108,7 +108,7 @@ function getScale(wrapper) {
 }
 
 function setScale(wrapper, nextScale) {
-  const clamped = Math.min(3, Math.max(0.75, nextScale));
+  const clamped = Math.min(3, Math.max(0.7, nextScale));
   wrapper.dataset.mermaidScale = String(clamped);
   return clamped;
 }
@@ -135,33 +135,43 @@ function updateZoomUI(wrapper) {
   }
 }
 
-function activateWrapper(wrapper) {
+function clearActiveWrappers() {
   for (const item of getWrapperNodes()) {
-    item.classList.remove("is-active");
+    item.classList.remove("is-active", "is-dragging");
   }
+}
 
+function activateWrapper(wrapper) {
+  clearActiveWrappers();
   wrapper.classList.add("is-active");
   wrapper.focus({ preventScroll: true });
 }
 
 function applyZoom(wrapper) {
   const svg = wrapper.querySelector("svg");
-  if (!svg) {
+  const canvas = wrapper.querySelector("[data-mermaid-canvas]");
+
+  if (!svg || !canvas) {
     return;
   }
 
   const baseWidth = Number.parseFloat(wrapper.dataset.mermaidBaseWidth || "0") || getBaseWidth(svg);
+  const scaledWidth = baseWidth * getScale(wrapper);
+
   wrapper.dataset.mermaidBaseWidth = String(baseWidth);
-  svg.style.width = `${baseWidth * getScale(wrapper)}px`;
+  svg.style.width = `${scaledWidth}px`;
   svg.style.height = "auto";
   svg.style.maxWidth = "none";
+  canvas.style.minWidth = `${scaledWidth}px`;
+
   updateZoomUI(wrapper);
 }
 
 function bindZoomControls() {
   for (const wrapper of getWrapperNodes()) {
     const svg = wrapper.querySelector("svg");
-    const diagramHost = wrapper.querySelector(".mermaid");
+    const canvas = wrapper.querySelector("[data-mermaid-canvas]");
+
     if (svg) {
       applyZoom(wrapper);
     }
@@ -188,7 +198,7 @@ function bindZoomControls() {
       applyZoom(wrapper);
     });
 
-    diagramHost?.addEventListener("click", () => {
+    canvas?.addEventListener("click", () => {
       activateWrapper(wrapper);
     });
 
@@ -214,17 +224,22 @@ function bindZoomControls() {
         setScale(wrapper, 1);
         applyZoom(wrapper);
       }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        wrapper.classList.remove("is-active", "is-dragging");
+      }
     });
 
-    diagramHost?.addEventListener(
+    wrapper.addEventListener(
       "wheel",
       (event) => {
-        if (!wrapper.classList.contains("is-active")) {
+        if (!wrapper.classList.contains("is-active") || !canvas?.contains(event.target)) {
           return;
         }
 
         event.preventDefault();
-        const delta = event.deltaY < 0 ? 0.12 : -0.12;
+        const delta = event.deltaY < 0 ? 0.1 : -0.1;
         setScale(wrapper, getScale(wrapper) + delta);
         applyZoom(wrapper);
       },
@@ -233,24 +248,40 @@ function bindZoomControls() {
 
     let dragState = null;
 
-    diagramHost?.addEventListener("mousedown", (event) => {
+    const stopDrag = (pointerId) => {
+      if (!dragState) {
+        return;
+      }
+
+      if (typeof pointerId === "number" && dragState.pointerId !== pointerId) {
+        return;
+      }
+
+      dragState = null;
+      wrapper.classList.remove("is-dragging");
+    };
+
+    canvas?.addEventListener("pointerdown", (event) => {
       if (event.button !== 0) {
         return;
       }
 
       activateWrapper(wrapper);
       dragState = {
+        pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
         scrollLeft: wrapper.scrollLeft,
         scrollTop: wrapper.scrollTop,
       };
+
       wrapper.classList.add("is-dragging");
+      canvas.setPointerCapture(event.pointerId);
       event.preventDefault();
     });
 
-    window.addEventListener("mousemove", (event) => {
-      if (!dragState) {
+    canvas?.addEventListener("pointermove", (event) => {
+      if (!dragState || dragState.pointerId !== event.pointerId) {
         return;
       }
 
@@ -258,17 +289,19 @@ function bindZoomControls() {
       wrapper.scrollTop = dragState.scrollTop - (event.clientY - dragState.startY);
     });
 
-    window.addEventListener("mouseup", () => {
-      if (!dragState) {
-        return;
+    canvas?.addEventListener("pointerup", (event) => {
+      stopDrag(event.pointerId);
+      if (canvas.hasPointerCapture(event.pointerId)) {
+        canvas.releasePointerCapture(event.pointerId);
       }
-
-      dragState = null;
-      wrapper.classList.remove("is-dragging");
     });
 
-    wrapper.addEventListener("blur", () => {
-      wrapper.classList.remove("is-active");
+    canvas?.addEventListener("pointercancel", (event) => {
+      stopDrag(event.pointerId);
+    });
+
+    canvas?.addEventListener("lostpointercapture", () => {
+      stopDrag();
     });
 
     wrapper.dataset.mermaidZoomBound = "true";
@@ -293,6 +326,16 @@ export default function initMermaid() {
     return;
   }
 
+  if (!root.__mermaidDocumentBindings) {
+    document.addEventListener("pointerdown", (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest("[data-mermaid-wrapper]")) {
+        clearActiveWrappers();
+      }
+    });
+
+    root.__mermaidDocumentBindings = true;
+  }
+
   if (!root.__mermaidBootstrapPromise) {
     root.__mermaidBootstrapPromise = import(MERMAID_MODULE_URL)
       .then(async ({ default: mermaid }) => {
@@ -304,7 +347,6 @@ export default function initMermaid() {
           }
 
           resetDiagramSources(nodes);
-
           mermaid.initialize(getMermaidConfig(getTheme()));
 
           await mermaid.run({ nodes });

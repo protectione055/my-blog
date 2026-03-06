@@ -9,9 +9,10 @@ Technical posts already include Mermaid diagrams, but the current site renders t
 - Add a Hugo code block render hook for fenced `mermaid` blocks.
 - Load Mermaid on demand only for pages that contain Mermaid diagrams.
 - Make Mermaid output responsive and compatible with dark/light appearance switching.
+- Allow focused Mermaid diagrams to support mouse-wheel zoom and left-button drag panning inside the article frame.
 - Document the authoring workflow in the README.
 
 ## Impact
 
 - Affected specs: article-rendering
-- Affected code: Hugo render hooks under `layouts/_default/_markup/`, static JS bootstrap, custom styles, README
+- Affected code: Hugo render hooks under `layouts/_default/_markup/`, static JS bootstrap, custom styles, README, Mermaid interaction logic

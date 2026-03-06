@@ -11,6 +11,7 @@
 - [x] 2.2 Add a reusable Mermaid bootstrap script with dark/light theme awareness.
 - [x] 2.3 Make Mermaid output responsive inside article content.
 - [x] 2.4 Add in-frame zoom controls for dense Mermaid charts.
+- [x] 2.5 Add focused mouse-wheel zoom and left-button drag panning for dense Mermaid charts.
 
 ## 3. Validation & Docs
 
