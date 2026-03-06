@@ -1,4 +1,7 @@
 <div class="mermaid-wrapper" data-mermaid-wrapper>
+  <button type="button" class="mermaid-zoom-trigger" data-mermaid-zoom-trigger>
+    放大查看
+  </button>
   <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
 </div>
 <script type="module">

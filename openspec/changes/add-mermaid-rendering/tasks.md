@@ -10,6 +10,7 @@
 - [x] 2.1 Add a Hugo render hook for `mermaid` code blocks.
 - [x] 2.2 Add a reusable Mermaid bootstrap script with dark/light theme awareness.
 - [x] 2.3 Make Mermaid output responsive inside article content.
+- [x] 2.4 Add an enlarged viewer with zoom controls for dense Mermaid charts.
 
 ## 3. Validation & Docs
 

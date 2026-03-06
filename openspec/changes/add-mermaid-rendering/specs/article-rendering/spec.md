@@ -42,3 +42,12 @@ Rendered Mermaid diagrams SHALL adapt to the site appearance mode so charts rema
 
 - **WHEN** the site changes between light and dark appearance
 - **THEN** Mermaid diagrams are re-rendered or themed so text and connectors remain legible in the active mode.
+
+### Requirement: Zoomable Mermaid Viewer
+
+Rendered Mermaid diagrams SHALL support an enlarged viewer for dense charts such as sequence diagrams.
+
+#### Scenario: Reader enlarges a sequence diagram
+
+- **WHEN** the reader clicks the zoom trigger or double-clicks a Mermaid chart
+- **THEN** the page opens a larger viewer that supports zoom in, zoom out, and reset controls.
