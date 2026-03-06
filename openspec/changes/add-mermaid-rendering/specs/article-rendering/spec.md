@@ -51,3 +51,8 @@ Rendered Mermaid diagrams SHALL support in-frame zoom controls for dense charts 
 
 - **WHEN** the reader uses the zoom controls shown above a Mermaid chart
 - **THEN** the diagram scales inside the article frame and remains horizontally scrollable when it exceeds the column width.
+
+#### Scenario: Reader focuses and drags a dense diagram
+
+- **WHEN** the reader clicks a Mermaid chart to focus it and then uses the mouse wheel or drags with the left mouse button held down
+- **THEN** the chart zooms only while focused and can be panned within the same article frame.

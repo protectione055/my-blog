@@ -13,7 +13,7 @@ function getMermaidConfig(theme) {
           darkMode: true,
           background: "#0f172a",
           primaryColor: "#1e293b",
-          primaryBorderColor: "#fb923c",
+          primaryBorderColor: "#38bdf8",
           primaryTextColor: "#f8fafc",
           secondaryColor: "#082f49",
           secondaryBorderColor: "#38bdf8",
@@ -29,9 +29,9 @@ function getMermaidConfig(theme) {
           clusterBkg: "rgba(30, 41, 59, 0.9)",
           clusterBorder: "#475569",
           edgeLabelBackground: "#0f172a",
-          nodeBorder: "#fb923c",
+          nodeBorder: "#38bdf8",
           actorBkg: "#1e293b",
-          actorBorder: "#fb923c",
+          actorBorder: "#38bdf8",
           actorTextColor: "#f8fafc",
           actorLineColor: "#94a3b8",
           signalColor: "#cbd5e1",
@@ -50,9 +50,9 @@ function getMermaidConfig(theme) {
       : {
           darkMode: false,
           background: "#f8fafc",
-          primaryColor: "#fff7ed",
-          primaryBorderColor: "#f97316",
-          primaryTextColor: "#7c2d12",
+          primaryColor: "#f8fbff",
+          primaryBorderColor: "#7dd3fc",
+          primaryTextColor: "#0f172a",
           secondaryColor: "#eff6ff",
           secondaryBorderColor: "#0ea5e9",
           secondaryTextColor: "#0f172a",
@@ -63,13 +63,13 @@ function getMermaidConfig(theme) {
           textColor: "#0f172a",
           mainBkg: "#ffffff",
           secondBkg: "#eff6ff",
-          tertiaryBkg: "#fff7ed",
+          tertiaryBkg: "#f8fbff",
           clusterBkg: "rgba(255, 255, 255, 0.88)",
           clusterBorder: "#cbd5e1",
           edgeLabelBackground: "#ffffff",
-          nodeBorder: "#f97316",
+          nodeBorder: "#7dd3fc",
           actorBkg: "#ffffff",
-          actorBorder: "#f97316",
+          actorBorder: "#7dd3fc",
           actorTextColor: "#0f172a",
           actorLineColor: "#64748b",
           signalColor: "#334155",
@@ -135,6 +135,15 @@ function updateZoomUI(wrapper) {
   }
 }
 
+function activateWrapper(wrapper) {
+  for (const item of getWrapperNodes()) {
+    item.classList.remove("is-active");
+  }
+
+  wrapper.classList.add("is-active");
+  wrapper.focus({ preventScroll: true });
+}
+
 function applyZoom(wrapper) {
   const svg = wrapper.querySelector("svg");
   if (!svg) {
@@ -162,23 +171,58 @@ function bindZoomControls() {
     }
 
     wrapper.querySelector("[data-mermaid-zoom-in]")?.addEventListener("click", () => {
+      activateWrapper(wrapper);
       setScale(wrapper, getScale(wrapper) + 0.25);
       applyZoom(wrapper);
     });
 
     wrapper.querySelector("[data-mermaid-zoom-out]")?.addEventListener("click", () => {
+      activateWrapper(wrapper);
       setScale(wrapper, getScale(wrapper) - 0.25);
       applyZoom(wrapper);
     });
 
     wrapper.querySelector("[data-mermaid-zoom-reset]")?.addEventListener("click", () => {
+      activateWrapper(wrapper);
       setScale(wrapper, 1);
       applyZoom(wrapper);
+    });
+
+    diagramHost?.addEventListener("click", () => {
+      activateWrapper(wrapper);
+    });
+
+    wrapper.addEventListener("keydown", (event) => {
+      if (!wrapper.classList.contains("is-active")) {
+        return;
+      }
+
+      if (event.key === "+" || event.key === "=") {
+        event.preventDefault();
+        setScale(wrapper, getScale(wrapper) + 0.12);
+        applyZoom(wrapper);
+      }
+
+      if (event.key === "-" || event.key === "_") {
+        event.preventDefault();
+        setScale(wrapper, getScale(wrapper) - 0.12);
+        applyZoom(wrapper);
+      }
+
+      if (event.key === "0") {
+        event.preventDefault();
+        setScale(wrapper, 1);
+        applyZoom(wrapper);
+      }
     });
 
     diagramHost?.addEventListener(
       "wheel",
       (event) => {
+        if (!wrapper.classList.contains("is-active")) {
+          return;
+        }
+
         event.preventDefault();
         const delta = event.deltaY < 0 ? 0.12 : -0.12;
         setScale(wrapper, getScale(wrapper) + delta);
@@ -186,6 +230,46 @@ function bindZoomControls() {
       },
       { passive: false },
     );
+
+    let dragState = null;
+
+    diagramHost?.addEventListener("mousedown", (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      activateWrapper(wrapper);
+      dragState = {
+        startX: event.clientX,
+        startY: event.clientY,
+        scrollLeft: wrapper.scrollLeft,
+        scrollTop: wrapper.scrollTop,
+      };
+      wrapper.classList.add("is-dragging");
+      event.preventDefault();
+    });
+
+    window.addEventListener("mousemove", (event) => {
+      if (!dragState) {
+        return;
+      }
+
+      wrapper.scrollLeft = dragState.scrollLeft - (event.clientX - dragState.startX);
+      wrapper.scrollTop = dragState.scrollTop - (event.clientY - dragState.startY);
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!dragState) {
+        return;
+      }
+
+      dragState = null;
+      wrapper.classList.remove("is-dragging");
+    });
+
+    wrapper.addEventListener("blur", () => {
+      wrapper.classList.remove("is-active");
+    });
 
     wrapper.dataset.mermaidZoomBound = "true";
   }
