@@ -1,7 +1,16 @@
 <div class="mermaid-wrapper" data-mermaid-wrapper>
-  <button type="button" class="mermaid-zoom-trigger" data-mermaid-zoom-trigger>
-    放大查看
-  </button>
+  <div class="mermaid-toolbar" data-mermaid-toolbar>
+    <button type="button" class="mermaid-zoom-button" data-mermaid-zoom-out>
+      －
+    </button>
+    <span class="mermaid-zoom-level" data-mermaid-zoom-level>100%</span>
+    <button type="button" class="mermaid-zoom-button" data-mermaid-zoom-in>
+      ＋
+    </button>
+    <button type="button" class="mermaid-zoom-button" data-mermaid-zoom-reset>
+      重置
+    </button>
+  </div>
   <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
 </div>
 <script type="module">

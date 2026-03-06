@@ -1,5 +1,4 @@
 const MERMAID_MODULE_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-const MERMAID_DIALOG_ID = "mermaid-zoom-dialog";
 
 function getWrapperNodes() {
   return Array.from(document.querySelectorAll("[data-mermaid-wrapper]"));
@@ -13,6 +12,17 @@ function getTheme() {
 
 function getDiagramNodes() {
   return Array.from(document.querySelectorAll("pre.mermaid"));
+}
+
+function getScale(wrapper) {
+  const scale = Number.parseFloat(wrapper.dataset.mermaidScale || "1");
+  return Number.isFinite(scale) ? scale : 1;
+}
+
+function setScale(wrapper, nextScale) {
+  const clamped = Math.min(3, Math.max(0.75, nextScale));
+  wrapper.dataset.mermaidScale = String(clamped);
+  return clamped;
 }
 
 function getBaseWidth(svg) {
@@ -30,115 +40,69 @@ function getBaseWidth(svg) {
   return rectWidth > 0 ? rectWidth : 800;
 }
 
-function ensureZoomDialog() {
-  let dialog = document.getElementById(MERMAID_DIALOG_ID);
-
-  if (dialog) {
-    return dialog;
+function updateZoomUI(wrapper) {
+  const level = wrapper.querySelector("[data-mermaid-zoom-level]");
+  if (level) {
+    level.textContent = `${Math.round(getScale(wrapper) * 100)}%`;
   }
-
-  dialog = document.createElement("dialog");
-  dialog.id = MERMAID_DIALOG_ID;
-  dialog.className = "mermaid-zoom-dialog";
-  dialog.innerHTML = `
-    <div class="mermaid-zoom-shell">
-      <div class="mermaid-zoom-toolbar">
-        <div class="mermaid-zoom-actions">
-          <button type="button" data-mermaid-zoom-out>－</button>
-          <span data-mermaid-zoom-level>100%</span>
-          <button type="button" data-mermaid-zoom-in>＋</button>
-          <button type="button" data-mermaid-zoom-reset>重置</button>
-        </div>
-        <button type="button" class="mermaid-zoom-close" data-mermaid-zoom-close>关闭</button>
-      </div>
-      <div class="mermaid-zoom-viewport" data-mermaid-zoom-viewport>
-        <div class="mermaid-zoom-stage" data-mermaid-zoom-stage></div>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(dialog);
-
-  const viewport = dialog.querySelector("[data-mermaid-zoom-viewport]");
-  const stage = dialog.querySelector("[data-mermaid-zoom-stage]");
-  const zoomLevel = dialog.querySelector("[data-mermaid-zoom-level]");
-  const zoomState = { scale: 1, baseWidth: 0 };
-
-  const applyZoom = () => {
-    const svg = stage.querySelector("svg");
-    if (!svg || !zoomState.baseWidth) {
-      return;
-    }
-
-    svg.style.width = `${zoomState.baseWidth * zoomState.scale}px`;
-    svg.style.height = "auto";
-    zoomLevel.textContent = `${Math.round(zoomState.scale * 100)}%`;
-  };
-
-  const setScale = (nextScale) => {
-    zoomState.scale = Math.min(4, Math.max(0.5, nextScale));
-    applyZoom();
-  };
-
-  dialog.querySelector("[data-mermaid-zoom-in]").addEventListener("click", () => setScale(zoomState.scale + 0.25));
-  dialog.querySelector("[data-mermaid-zoom-out]").addEventListener("click", () => setScale(zoomState.scale - 0.25));
-  dialog.querySelector("[data-mermaid-zoom-reset]").addEventListener("click", () => setScale(1));
-  dialog.querySelector("[data-mermaid-zoom-close]").addEventListener("click", () => dialog.close());
-
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) {
-      dialog.close();
-    }
-  });
-
-  viewport.addEventListener(
-    "wheel",
-    (event) => {
-      if (!event.ctrlKey) {
-        return;
-      }
-
-      event.preventDefault();
-      const delta = event.deltaY < 0 ? 0.2 : -0.2;
-      setScale(zoomState.scale + delta);
-    },
-    { passive: false },
-  );
-
-  dialog.openWithDiagram = (svgMarkup, baseWidth) => {
-    stage.innerHTML = "";
-    const clone = svgMarkup.cloneNode(true);
-    clone.removeAttribute("style");
-    clone.style.maxWidth = "none";
-    stage.appendChild(clone);
-    zoomState.baseWidth = baseWidth;
-    setScale(1);
-    dialog.showModal();
-  };
-
-  return dialog;
 }
 
-function bindZoomTriggers() {
-  const dialog = ensureZoomDialog();
+function applyZoom(wrapper) {
+  const svg = wrapper.querySelector("svg");
+  if (!svg) {
+    return;
+  }
+
+  const baseWidth = Number.parseFloat(wrapper.dataset.mermaidBaseWidth || "0") || getBaseWidth(svg);
+  wrapper.dataset.mermaidBaseWidth = String(baseWidth);
+  svg.style.width = `${baseWidth * getScale(wrapper)}px`;
+  svg.style.height = "auto";
+  svg.style.maxWidth = "none";
+  updateZoomUI(wrapper);
+}
+
+function bindZoomControls() {
 
   for (const wrapper of getWrapperNodes()) {
+    const svg = wrapper.querySelector("svg");
+    if (svg) {
+      applyZoom(wrapper);
+    }
+
     if (wrapper.dataset.mermaidZoomBound === "true") {
       continue;
     }
 
-    const trigger = wrapper.querySelector("[data-mermaid-zoom-trigger]");
-    const openZoom = () => {
-      const svg = wrapper.querySelector("svg");
-      if (!svg) {
-        return;
-      }
+    wrapper.querySelector("[data-mermaid-zoom-in]")?.addEventListener("click", () => {
+      setScale(wrapper, getScale(wrapper) + 0.25);
+      applyZoom(wrapper);
+    });
 
-      dialog.openWithDiagram(svg, getBaseWidth(svg));
-    };
+    wrapper.querySelector("[data-mermaid-zoom-out]")?.addEventListener("click", () => {
+      setScale(wrapper, getScale(wrapper) - 0.25);
+      applyZoom(wrapper);
+    });
 
-    trigger?.addEventListener("click", openZoom);
-    wrapper.addEventListener("dblclick", openZoom);
+    wrapper.querySelector("[data-mermaid-zoom-reset]")?.addEventListener("click", () => {
+      setScale(wrapper, 1);
+      applyZoom(wrapper);
+    });
+
+    wrapper.addEventListener(
+      "wheel",
+      (event) => {
+        if (!event.ctrlKey) {
+          return;
+        }
+
+        event.preventDefault();
+        const delta = event.deltaY < 0 ? 0.15 : -0.15;
+        setScale(wrapper, getScale(wrapper) + delta);
+        applyZoom(wrapper);
+      },
+      { passive: false },
+    );
+
     wrapper.dataset.mermaidZoomBound = "true";
   }
 }
@@ -180,7 +144,7 @@ export default function initMermaid() {
           });
 
           await mermaid.run({ nodes });
-          bindZoomTriggers();
+          bindZoomControls();
         };
 
         root.__renderMermaidCharts = renderMermaid;
