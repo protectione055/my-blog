@@ -1,0 +1,7 @@
+<div class="mermaid-wrapper" data-mermaid-wrapper>
+  <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
+</div>
+<script type="module">
+  import initMermaid from '{{ "js/mermaid-init.js" | relURL }}';
+  initMermaid();
+</script>

@@ -33,6 +33,21 @@ Artifacts are static files under `public/`. Deploy them to GitHub Pages, Cloudfl
 - `assets/scss/custom.scss` and `assets/js/main.js` extend Blowfish via Hugo Pipes.
 - `static/images/placeholders/*.svg` are lightweight placeholder illustrations; replace them with photography or artwork when ready.
 - Use the `math` front-matter flag (planned in OpenSpec change `add-latex-rendering`) to toggle KaTeX once implemented.
+- Mermaid charts are supported via fenced code blocks using the `mermaid` language tag; pages without Mermaid blocks do not load Mermaid bootstrap code.
+
+### Mermaid authoring
+
+Use standard fenced code blocks in Markdown:
+
+````markdown
+```mermaid
+flowchart TD
+    A[Write Markdown] --> B[Hugo render hook]
+    B --> C[Mermaid SVG]
+```
+````
+
+Mermaid charts re-render when the site switches between light and dark appearance, and wide diagrams can scroll horizontally on narrow screens.
 
 ## OpenSpec Workflow
 
