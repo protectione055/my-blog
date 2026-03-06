@@ -47,7 +47,7 @@ flowchart TD
 ```
 ````
 
-Mermaid charts re-render when the site switches between light and dark appearance, and wide diagrams can scroll horizontally on narrow screens. Use the in-frame zoom controls or `Ctrl + 滚轮` to enlarge dense charts such as sequence diagrams.
+Mermaid charts re-render when the site switches between light and dark appearance, and wide diagrams can scroll horizontally on narrow screens. Move the pointer over the diagram and use the mouse wheel to zoom, or use the in-frame controls shown at the lower-left corner.
 
 ## OpenSpec Workflow
 

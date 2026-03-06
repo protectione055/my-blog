@@ -152,6 +152,7 @@ function applyZoom(wrapper) {
 function bindZoomControls() {
   for (const wrapper of getWrapperNodes()) {
     const svg = wrapper.querySelector("svg");
+    const diagramHost = wrapper.querySelector(".mermaid");
     if (svg) {
       applyZoom(wrapper);
     }
@@ -175,15 +176,11 @@ function bindZoomControls() {
       applyZoom(wrapper);
     });
 
-    wrapper.addEventListener(
+    diagramHost?.addEventListener(
       "wheel",
       (event) => {
-        if (!event.ctrlKey) {
-          return;
-        }
-
         event.preventDefault();
-        const delta = event.deltaY < 0 ? 0.15 : -0.15;
+        const delta = event.deltaY < 0 ? 0.12 : -0.12;
         setScale(wrapper, getScale(wrapper) + delta);
         applyZoom(wrapper);
       },

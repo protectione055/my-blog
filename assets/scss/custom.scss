@@ -10,7 +10,7 @@ body {
   position: relative;
   margin: 2rem 0;
   border: 1px solid rgba(249, 115, 22, 0.18);
-    border-radius: 1.25rem;
+  border-radius: 1.25rem;
     background:
       radial-gradient(circle at top right, rgba(249, 115, 22, 0.12), transparent 28%),
       radial-gradient(circle at top left, rgba(14, 165, 233, 0.1), transparent 32%),
@@ -19,12 +19,12 @@ body {
       inset 0 1px 0 rgba(255, 255, 255, 0.7),
       0 18px 40px -28px rgba(15, 23, 42, 0.35);
     overflow-x: auto;
-  padding: 1rem 1rem 1.15rem;
+  padding: 1rem 1rem 4.35rem;
 }
 
 .dark .mermaid-wrapper {
   border-color: rgba(56, 189, 248, 0.2);
-    background:
+  background:
       radial-gradient(circle at top right, rgba(249, 115, 22, 0.14), transparent 28%),
       radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 32%),
       linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(17, 24, 39, 0.92));
@@ -34,18 +34,32 @@ body {
 }
 
 .mermaid-toolbar {
+  position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.5rem;
-  margin-bottom: 0.9rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  margin-bottom: 0;
+    padding: 0.4rem;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 28px -24px rgba(15, 23, 42, 0.45);
+  }
+  
+  .dark .mermaid-toolbar {
+    border-color: rgba(56, 189, 248, 0.14);
+    background: rgba(15, 23, 42, 0.68);
+    box-shadow: 0 16px 28px -22px rgba(2, 8, 23, 0.8);
 }
 
 .mermaid-zoom-button {
   border: 1px solid rgba(249, 115, 22, 0.18);
-    border-radius: 9999px;
+  border-radius: 9999px;
     background: rgba(255, 255, 255, 0.76);
     box-shadow: 0 8px 18px -14px rgba(15, 23, 42, 0.45);
   color: inherit;
@@ -54,7 +68,7 @@ body {
   font-weight: 600;
   line-height: 1;
   padding: 0.5rem 0.82rem;
-    transition:
+  transition:
       transform 140ms ease,
       box-shadow 140ms ease,
       border-color 140ms ease,
@@ -70,7 +84,7 @@ body {
 
 .dark .mermaid-zoom-button {
   border-color: rgba(56, 189, 248, 0.18);
-    background: rgba(15, 23, 42, 0.72);
+  background: rgba(15, 23, 42, 0.72);
     box-shadow: 0 12px 22px -16px rgba(2, 8, 23, 0.85);
   }
   
@@ -83,12 +97,12 @@ body {
 .mermaid-zoom-level {
   color: rgba(71, 85, 105, 1);
   background: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(148, 163, 184, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.16);
     border-radius: 9999px;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
-    font-weight: 700;
+  font-weight: 700;
   min-width: 3.5rem;
   padding: 0.45rem 0.7rem;
   text-align: center;
@@ -97,7 +111,7 @@ body {
 .dark .mermaid-zoom-level {
   color: rgba(203, 213, 225, 1);
   background: rgba(15, 23, 42, 0.62);
-    border-color: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.14);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -105,6 +119,7 @@ body {
   display: flex;
   justify-content: center;
   min-width: fit-content;
+  cursor: zoom-in;
 }
 
 .mermaid svg {
@@ -112,23 +127,23 @@ body {
   height: auto;
   max-width: none;
   filter: drop-shadow(0 16px 22px rgba(15, 23, 42, 0.08));
-  }
-  
-  .dark .mermaid svg {
-    filter: drop-shadow(0 18px 28px rgba(2, 8, 23, 0.36));
-  }
-  
-  .mermaid :is(text, tspan, foreignObject div) {
-    font-family: "LXGW WenKai Screen", "Inter", sans-serif;
-  }
-  
-  .mermaid .label,
-  .mermaid .cluster-label,
-  .mermaid .nodeLabel,
-  .mermaid .messageText,
-  .mermaid .loopText,
-  .mermaid .noteText {
-    font-weight: 600;
+}
+
+.dark .mermaid svg {
+  filter: drop-shadow(0 18px 28px rgba(2, 8, 23, 0.36));
+}
+
+.mermaid :is(text, tspan, foreignObject div) {
+  font-family: "LXGW WenKai Screen", "Inter", sans-serif;
+}
+
+.mermaid .label,
+.mermaid .cluster-label,
+.mermaid .nodeLabel,
+.mermaid .messageText,
+.mermaid .loopText,
+.mermaid .noteText {
+  font-weight: 600;
 }
 
 .hero {
