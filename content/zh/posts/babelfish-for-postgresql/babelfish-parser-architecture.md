@@ -1,4 +1,5 @@
 ---
+featureImage: "img/covers/babelfish.webp"
 title: "Babelfish 语法解析与 PL/TSQL 执行架构解析"
 date: 2026-03-06 10:00:00
 slug: "babelfish-parser-architecture"

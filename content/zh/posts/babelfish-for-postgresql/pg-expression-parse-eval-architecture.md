@@ -1,4 +1,5 @@
 ---
+featureImage: "img/covers/expressions.webp"
 title: "PostgreSQL 表达式处理框架"
 date: 2026-03-09 10:00:00
 slug: "pg-expression-parse-eval-architecture"

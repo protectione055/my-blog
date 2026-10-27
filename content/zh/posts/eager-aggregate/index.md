@@ -1,4 +1,5 @@
 ---
+featureImage: "img/covers/eager-aggregation.webp"
 title: "PG 19 “聚合+连接”执行优化：Eager aggregation"
 date: 2025-04-13 15:21:32
 slug: "pg-19-eager-aggregation"

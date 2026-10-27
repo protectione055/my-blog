@@ -1,4 +1,5 @@
 ---
+featureImage: "img/covers/pgq.webp"
 title: "PostgreSQL 属性图查询（SQL/PGQ）内部原理"
 date: 2026-08-30T00:00:00+08:00
 slug: "pgq-internals"

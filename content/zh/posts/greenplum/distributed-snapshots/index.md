@@ -1,4 +1,5 @@
 +++
+featureImage = "img/covers/greenplum-snapshot.webp"
 title = "Greenplum 分布式快照：从创建、分发到可见性判断"
 date = 2026-10-27T00:00:00+08:00
 slug = "distributed-snapshots"
