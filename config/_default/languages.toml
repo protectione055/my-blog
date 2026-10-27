@@ -11,12 +11,12 @@ languageCode = "zh-CN"
   rtl = false
   dateFormat = "2006-01-02"
   logo = "img/blowfish_logo_transparent.png"
-  description = "我是 Taurean。这里主要写 PostgreSQL、数据库内核，以及解决实际工程问题时学到的东西。"
+  description = "我是 Toren Zhang。这里主要写 PostgreSQL、数据库内核，以及解决实际工程问题时学到的东西。"
 
   [zh.params.author]
-  name = "Taurean"
+  name = "Toren Zhang"
   image = "images/placeholders/avatar.jpg"
-  headline = "数据库内核开发工程师"
+  headline = "@protectione055"
   bio = "关注 PostgreSQL、数据库内核与系统编程，记录学习与工程实践。"
   links = [
     { github = "https://github.com/protectione055" },
@@ -37,12 +37,12 @@ languageCode = "en-US"
   rtl = false
   dateFormat = "Jan 2, 2006"
   logo = "img/blowfish_logo_transparent.png"
-  description = "I'm Taurean. I write about PostgreSQL, database internals, and what I learn while solving real engineering problems."
+  description = "I'm Toren Zhang. I write about PostgreSQL, database internals, and what I learn while solving real engineering problems."
 
   [en.params.author]
-  name = "Taurean"
+  name = "Toren Zhang"
   image = "images/placeholders/avatar.jpg"
-  headline = "Database Kernel Engineer"
+  headline = "@protectione055"
   bio = "Notes on PostgreSQL, database internals, systems programming, and engineering practice."
   links = [
     { github = "https://github.com/protectione055" },
