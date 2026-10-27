@@ -8,6 +8,10 @@ body {
 
 .mermaid-wrapper {
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin: 2rem 0;
   border: 1px solid rgba(56, 189, 248, 0.16);
   border-radius: 1.25rem;
