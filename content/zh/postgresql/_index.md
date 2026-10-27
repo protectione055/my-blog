@@ -8,7 +8,7 @@ categories = []
 draft = false
 +++
 
-这个专题围绕 PostgreSQL 内核和 Babelfish 的实现展开，从源码与执行流程出发，记录数据库机制和兼容层设计。
+PostgreSQL 是一款开源关系数据库，以丰富的功能和可扩展性著称。Babelfish 在 PostgreSQL 上提供对 SQL Server 协议和 T-SQL 的兼容支持。
 
 ## PostgreSQL 内核
 

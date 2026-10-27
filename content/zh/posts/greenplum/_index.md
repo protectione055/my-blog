@@ -1,14 +1,14 @@
 +++
 title = "Greenplum 专题"
 date = 2026-10-27T00:00:00+08:00
-summary = "围绕 Greenplum 内核实现，逐篇梳理分布式事务、快照与查询执行机制。"
+summary = "关于 Greenplum 内核的一些笔记。"
 description = "Greenplum 内核原理系列文章。"
 tags = ["Greenplum", "PostgreSQL", "分布式数据库"]
 categories = ["数据库系统", "计算机技术"]
 draft = false
 +++
 
-这个专题记录 Greenplum 内核机制的阅读与分析，结合数据结构、源码调用链和 SQL 示例解释分布式数据库的执行过程。每篇文章注明讨论的实现范围，便于对照源码阅读。
+Greenplum 是基于 PostgreSQL 的分布式数据库，面向大规模数据分析。它将数据和查询分布到多个节点上并行处理。
 
 ## 阅读目录
 

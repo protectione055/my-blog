@@ -8,16 +8,16 @@ categories = []
 draft = false
 +++
 
-按主题整理的系列文章和学习笔记。选择一个专栏，进入对应的专题或文章列表。
+这里收集博客中的专题文章和学习笔记。
 
 ## [PostgreSQL 专题]({{< relref "/postgresql" >}})
 
-梳理 PostgreSQL 内核原理，以及 Babelfish 的兼容与执行机制。
+PostgreSQL 是一款可扩展的开源关系数据库；Babelfish 为它提供 SQL Server 兼容能力。
 
 ## [Greenplum 专题]({{< relref "/posts/greenplum" >}})
 
-结合数据结构、源码调用链和 SQL 示例，记录 Greenplum 分布式事务、快照与查询执行等内核机制。
+基于 PostgreSQL 的分布式数据库，面向大规模数据的并行分析。
 
 ## [CMU 15-445/645 数据库系统](../categories/cmu15-445/645/)
 
-围绕数据库系统课程，整理索引、查询执行、并发控制、日志和恢复等主题。
+卡内基梅隆大学的数据库系统课程，介绍数据库内部的设计与实现。
