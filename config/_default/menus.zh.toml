@@ -5,6 +5,12 @@ url = "/zh/posts/"
 weight = 10
 
 [[main]]
+identifier = "columns"
+name = "专栏"
+url = "/zh/columns/"
+weight = 15
+
+[[main]]
 identifier = "about"
 name = "关于"
 url = "/zh/about/"
