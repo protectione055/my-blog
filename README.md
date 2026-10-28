@@ -30,7 +30,7 @@ Artifacts are static files under `public/`. Deploy them to GitHub Pages, Cloudfl
 - `data/*.yaml` holds profile, hero, social, and featured-card metadata.
 - `content/zh/_index.md` and `content/en/_index.md` define the copy that appears inside the Blowfish **background** homepage layout.
 - `assets/img/background.svg` and `assets/img/featured.svg` are the gradient resources that feed default hero/featured images when no post image is provided.
-- `assets/scss/custom.scss` and `assets/js/main.js` extend Blowfish via Hugo Pipes.
+- `assets/css/custom.css` extends Blowfish through its custom stylesheet hook.
 - `static/images/placeholders/*.svg` are lightweight placeholder illustrations; replace them with photography or artwork when ready.
 - Use the `math` front-matter flag (planned in OpenSpec change `add-latex-rendering`) to toggle KaTeX once implemented.
 - Mermaid charts are supported via fenced code blocks using the `mermaid` language tag; pages without Mermaid blocks do not load Mermaid bootstrap code.
@@ -59,3 +59,4 @@ Mermaid charts re-render when the site switches between light and dark appearanc
 ## Deployment Notes
 
 A minimal GitHub Actions workflow can run `npm install && npm run build` and publish `public/` to GitHub Pages. Until CI is configured, run the build locally and upload the generated directory to your hosting provider.
+
