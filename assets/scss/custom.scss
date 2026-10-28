@@ -6,6 +6,17 @@ body {
   line-height: 1.7;
 }
 
+// Blowfish's article column uses max-width: fit-content. Constrain it to the
+// available space so wide diagrams scroll inside their wrapper, not the page.
+.prose > div:has(> .article-content) {
+  max-width: 100%;
+}
+
+.article-content {
+  min-width: 0;
+  max-width: min(65ch, 100%);
+}
+
 .mermaid-wrapper {
   position: relative;
   box-sizing: border-box;
