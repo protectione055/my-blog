@@ -3,7 +3,7 @@ title: "Toren Zhang的博客"
 description: "Just for Fun."
 ---
 
-> 日拱一卒无有尽
+> Just for fun.
 
 我是 Toren Zhang，一名数据库内核开发工程师。这里记录我的学习与思考。
 
