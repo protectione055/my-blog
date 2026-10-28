@@ -10,12 +10,15 @@
     <button type="button" class="mermaid-zoom-button" data-mermaid-zoom-reset>
       重置
     </button>
+    <button type="button" class="mermaid-zoom-button" data-mermaid-fullscreen aria-label="全屏查看图表">
+      全屏
+    </button>
   </div>
   <div class="mermaid-canvas" data-mermaid-canvas>
     <pre class="mermaid">{{- .Inner | strings.TrimSpace | htmlEscape | safeHTML -}}</pre>
   </div>
 </div>
 <script type="module">
-  import initMermaid from '{{ "js/mermaid-init.js" | relURL }}';
+  import initMermaid from '{{ "js/mermaid-init.js" | relURL }}?v={{ readFile "static/js/mermaid-init.js" | md5 }}';
   initMermaid();
 </script>

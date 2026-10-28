@@ -147,6 +147,35 @@ function activateWrapper(wrapper) {
   wrapper.focus({ preventScroll: true });
 }
 
+function openFullscreen(wrapper, trigger) {
+  const placeholder = document.createComment("mermaid position");
+  wrapper.before(placeholder);
+  const dialog = document.createElement("dialog");
+  dialog.className = "mermaid-dialog";
+  dialog.setAttribute("aria-label", "全屏图表");
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "mermaid-dialog-close";
+  close.textContent = "关闭 ✕";
+  close.setAttribute("aria-label", "关闭全屏图表");
+  dialog.append(close, wrapper);
+  document.body.append(dialog);
+  const originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+  dialog.addEventListener("close", () => {
+    placeholder.replaceWith(wrapper);
+    document.body.style.overflow = originalOverflow;
+    dialog.remove();
+    trigger.focus({ preventScroll: true });
+  }, { once: true });
+  close.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.showModal();
+  close.focus();
+}
+
 function applyZoom(wrapper) {
   const svg = wrapper.querySelector("svg");
   const canvas = wrapper.querySelector("[data-mermaid-canvas]");
@@ -198,6 +227,9 @@ function bindZoomControls() {
       applyZoom(wrapper);
     });
 
+    const fullscreen = wrapper.querySelector("[data-mermaid-fullscreen]");
+    fullscreen?.addEventListener("click", () => openFullscreen(wrapper, fullscreen));
+
     canvas?.addEventListener("click", () => {
       activateWrapper(wrapper);
     });
@@ -225,7 +257,7 @@ function bindZoomControls() {
         applyZoom(wrapper);
       }
 
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && !wrapper.closest("dialog")) {
         event.preventDefault();
         wrapper.classList.remove("is-active", "is-dragging");
       }
@@ -262,7 +294,7 @@ function bindZoomControls() {
     };
 
     canvas?.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) {
+      if (event.pointerType !== "mouse" || event.button !== 0) {
         return;
       }
 
@@ -303,6 +335,33 @@ function bindZoomControls() {
     canvas?.addEventListener("lostpointercapture", () => {
       stopDrag();
     });
+
+    let touchState = null;
+    canvas?.addEventListener("touchstart", (event) => {
+      if (!wrapper.closest(".mermaid-dialog")) return;
+      const touches = event.touches;
+      if (touches.length === 1) {
+        touchState = { x: touches[0].clientX, y: touches[0].clientY, left: wrapper.scrollLeft, top: wrapper.scrollTop };
+      } else if (touches.length === 2) {
+        touchState = { distance: Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY), scale: getScale(wrapper) };
+      }
+      event.preventDefault();
+    }, { passive: false });
+    canvas?.addEventListener("touchmove", (event) => {
+      if (!touchState || !wrapper.closest(".mermaid-dialog")) return;
+      const touches = event.touches;
+      if (touches.length === 1 && touchState.x !== undefined) {
+        wrapper.scrollLeft = touchState.left - (touches[0].clientX - touchState.x);
+        wrapper.scrollTop = touchState.top - (touches[0].clientY - touchState.y);
+      } else if (touches.length === 2 && touchState.distance) {
+        const distance = Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+        setScale(wrapper, touchState.scale * distance / touchState.distance);
+        applyZoom(wrapper);
+      }
+      event.preventDefault();
+    }, { passive: false });
+    canvas?.addEventListener("touchend", () => { touchState = null; });
+    canvas?.addEventListener("touchcancel", () => { touchState = null; });
 
     wrapper.dataset.mermaidZoomBound = "true";
   }

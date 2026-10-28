@@ -164,6 +164,41 @@ body {
   cursor: grabbing;
 }
 
+.mermaid-dialog {
+  position: fixed;
+  width: min(96vw, 1600px);
+  max-width: none;
+  height: 94dvh;
+  max-height: none;
+  margin: auto;
+  padding: 3.5rem 1rem 1rem;
+  border: 0;
+  border-radius: 1rem;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.mermaid-dialog::backdrop { background: rgba(2, 8, 23, 0.82); }
+.dark .mermaid-dialog { background: #0f172a; color: #f8fafc; }
+.mermaid-dialog .mermaid-wrapper { height: 100%; margin: 0; }
+.mermaid-dialog .mermaid-canvas { touch-action: none; }
+.mermaid-dialog-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #94a3b8;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+@media (max-width: 480px) {
+  .mermaid-dialog { width: 100vw; height: 100dvh; padding: 3.5rem 0.5rem 0.5rem; border-radius: 0; }
+  .mermaid-toolbar { gap: 0.2rem; }
+  .mermaid-zoom-button { padding: 0.5rem; }
+}
+
 .mermaid {
   display: flex;
   justify-content: center;
