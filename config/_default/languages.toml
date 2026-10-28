@@ -10,7 +10,7 @@ languageCode = "zh-CN"
   isoCode = "zh-CN"
   rtl = false
   dateFormat = "2006-01-02"
-  logo = "img/blowfish_logo_transparent.png"
+  logo = "img/toren-logo.svg"
   description = "我是 Toren Zhang。这里主要写 PostgreSQL、数据库内核，以及解决实际工程问题时学到的东西。"
 
   [zh.params.author]
@@ -36,7 +36,7 @@ languageCode = "en-US"
   isoCode = "en-US"
   rtl = false
   dateFormat = "Jan 2, 2006"
-  logo = "img/blowfish_logo_transparent.png"
+  logo = "img/toren-logo.svg"
   description = "I'm Toren Zhang. I write about PostgreSQL, database internals, and what I learn while solving real engineering problems."
 
   [en.params.author]
@@ -49,3 +49,4 @@ languageCode = "en-US"
     { x-twitter = "https://x.com/protectione055" },
     { rss = "/en/index.xml" }
   ]
+
