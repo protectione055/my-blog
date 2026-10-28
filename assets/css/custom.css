@@ -32,7 +32,7 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.7),
         0 18px 40px -28px rgba(15, 23, 42, 0.35);
   overflow: auto;
-  padding: 1rem 1rem 4.35rem;
+  padding: 3.75rem 1rem 4.35rem;
   transition:
     border-color 140ms ease,
       box-shadow 140ms ease,
@@ -68,6 +68,13 @@ body {
 
 .mermaid-wrapper:focus {
   outline: none;
+}
+
+.mermaid-fullscreen-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
 }
 
 .mermaid-toolbar {
@@ -181,6 +188,7 @@ body {
 .mermaid-dialog::backdrop { background: rgba(2, 8, 23, 0.82); }
 .dark .mermaid-dialog { background: #0f172a; color: #f8fafc; }
 .mermaid-dialog .mermaid-wrapper { height: 100%; margin: 0; }
+.mermaid-dialog .mermaid-fullscreen-button { display: none; }
 .mermaid-dialog .mermaid-canvas { touch-action: none; }
 .mermaid-dialog-close {
   position: absolute;
