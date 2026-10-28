@@ -108,7 +108,8 @@ function getScale(wrapper) {
 }
 
 function setScale(wrapper, nextScale) {
-  const clamped = Math.min(3, Math.max(0.7, nextScale));
+  const clamped = Math.min(3, Math.max(0.001, nextScale));
+  wrapper.dataset.mermaidAutoFit = "false";
   wrapper.dataset.mermaidScale = String(clamped);
   return clamped;
 }
@@ -148,6 +149,8 @@ function activateWrapper(wrapper) {
 }
 
 function openFullscreen(wrapper, trigger) {
+  const inlineScale = getScale(wrapper);
+  const inlineAutoFit = wrapper.dataset.mermaidAutoFit === "true";
   const placeholder = document.createComment("mermaid position");
   wrapper.before(placeholder);
   const dialog = document.createElement("dialog");
@@ -164,6 +167,8 @@ function openFullscreen(wrapper, trigger) {
   document.body.style.overflow = "hidden";
   dialog.addEventListener("close", () => {
     placeholder.replaceWith(wrapper);
+    if (inlineAutoFit) fitDiagram(wrapper);
+    else { setScale(wrapper, inlineScale); applyZoom(wrapper); }
     document.body.style.overflow = originalOverflow;
     dialog.remove();
     trigger.focus({ preventScroll: true });
@@ -173,7 +178,21 @@ function openFullscreen(wrapper, trigger) {
     if (event.target === dialog) dialog.close();
   });
   dialog.showModal();
+  setScale(wrapper, 1);
+  applyZoom(wrapper);
   close.focus();
+}
+
+function fitDiagram(wrapper) {
+  const svg = wrapper.querySelector("svg");
+  if (!svg) return;
+  const style = getComputedStyle(wrapper);
+  const available = wrapper.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+  const baseWidth = Number.parseFloat(wrapper.dataset.mermaidBaseWidth || "0") || getBaseWidth(svg);
+  if (available <= 0 || baseWidth <= 0) return;
+  wrapper.dataset.mermaidScale = String(Math.min(1, available / baseWidth));
+  wrapper.dataset.mermaidAutoFit = "true";
+  applyZoom(wrapper);
 }
 
 function applyZoom(wrapper) {
@@ -202,12 +221,17 @@ function bindZoomControls() {
     const canvas = wrapper.querySelector("[data-mermaid-canvas]");
 
     if (svg) {
-      applyZoom(wrapper);
+      if (!wrapper.dataset.mermaidScale || wrapper.dataset.mermaidAutoFit === "true") fitDiagram(wrapper);
+      else applyZoom(wrapper);
     }
 
     if (wrapper.dataset.mermaidZoomBound === "true") {
       continue;
     }
+
+    new ResizeObserver(() => {
+      if (wrapper.dataset.mermaidAutoFit === "true" && !wrapper.closest("dialog")) fitDiagram(wrapper);
+    }).observe(wrapper);
 
     wrapper.querySelector("[data-mermaid-zoom-in]")?.addEventListener("click", () => {
       activateWrapper(wrapper);
@@ -223,8 +247,8 @@ function bindZoomControls() {
 
     wrapper.querySelector("[data-mermaid-zoom-reset]")?.addEventListener("click", () => {
       activateWrapper(wrapper);
-      setScale(wrapper, 1);
-      applyZoom(wrapper);
+      if (wrapper.closest("dialog")) { setScale(wrapper, 1); applyZoom(wrapper); }
+      else fitDiagram(wrapper);
     });
 
     const fullscreen = wrapper.querySelector("[data-mermaid-fullscreen]");
@@ -253,8 +277,8 @@ function bindZoomControls() {
 
       if (event.key === "0") {
         event.preventDefault();
-        setScale(wrapper, 1);
-        applyZoom(wrapper);
+        if (wrapper.closest("dialog")) { setScale(wrapper, 1); applyZoom(wrapper); }
+        else fitDiagram(wrapper);
       }
 
       if (event.key === "Escape" && !wrapper.closest("dialog")) {

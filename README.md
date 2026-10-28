@@ -47,7 +47,7 @@ flowchart TD
 ```
 ````
 
-Mermaid charts re-render when the site switches between light and dark appearance, and wide diagrams can scroll horizontally on narrow screens. Click the diagram once to activate it, then use the mouse wheel to zoom. Hold the left mouse button and drag to pan the chart inside the same frame, or use the in-frame controls shown at the lower-left corner.
+Mermaid charts re-render when the site switches between light and dark appearance. Wide diagrams initially fit the article column; use the fullscreen button at the top right to view details at their original size. Click a diagram to activate mouse-wheel zoom, drag to pan, or use the in-frame controls. Reset restores the fitted size in the article and the original size in fullscreen.
 
 ## OpenSpec Workflow
 
