@@ -17,8 +17,6 @@ draft = false
 年份：1989；原文页码：377–388，共 12 页。
 来源：[原始 PDF](https://15799.courses.cs.cmu.edu/spring2025/papers/03-starburst/haas-sigmodrec1989.pdf)
 
-本文按原文顺序逐段翻译；技术标识符、代码及参考文献保留英文。
-
 目录：[摘要](#abstract) · [1 引言](#introduction) · [2 语言](#language) · [3 语言处理概览](#overview) · [4 查询图模型](#qgm) · [5 查询重写](#rewrite) · [6 计划优化](#optimization) · [7 查询求值系统](#qes) · [8 结论](#conclusions) · [致谢](#acknowledgements) · [9 参考文献](#bibliography)
 
 <a id="abstract"></a>
